@@ -3,7 +3,7 @@ import ProductCard from '../components/ProductCard'
 
 const Home = () => {
   return (
-    <div>
+    <div className='mt-[70px]'>
       <ProductCard/>
     </div>
   )
