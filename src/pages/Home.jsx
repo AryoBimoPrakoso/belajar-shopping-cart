@@ -1,5 +1,6 @@
 import React from 'react'
 import ProductCard from '../components/ProductCard'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   return (
