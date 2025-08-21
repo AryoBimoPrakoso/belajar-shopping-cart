@@ -22,9 +22,10 @@ const ProductDetail = () => {
 
   return (
     <>
-      <div className="mt-[110px]">
+      <div className="flex mt-[110px] p-14 mx-auto">
         {product ? (
           <div>
+            <img src={product.thumbnail} alt={product.title}/>
             <h1>{product.title}</h1>
             <button onClick={() => addToCart(product)}>klik ini dah</button>
           </div>

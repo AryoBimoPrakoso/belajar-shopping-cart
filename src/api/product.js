@@ -1,4 +1,4 @@
-const API_URL = "https://dummyjson.com/products/category/smartphones";
+const API_URL = "https://dummyjson.com/products/category/fragrances";
 
 export const getData = async () =>{
     try {
