@@ -11,6 +11,7 @@ import profileSVG from "../assets/svg/profile.svg";
 
 // Icon
 import { GoDotFill } from "react-icons/go";
+import { FaPlus } from "react-icons/fa";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState(null);
@@ -67,13 +68,38 @@ const ProductDetail = () => {
                   </div>
                 </div>
               </div>
-
-              <div className="w-full max-w-[400px] bg-[#e6e6e6] ml-14">
+              {/* Add to cart */}
+              <div className="w-full max-w-[400px] bg-[#e6e6e6] rounded-lg ml-14 justify-between flex flex-col p-14">
+                <div className="flex flex-col justify-between h-full pb-8">
+                  <div className="flex">
+                    <div className="w-full">
+                      <img
+                        src={product.thumbnail}
+                        alt={product.title}
+                        className="w-12"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <p className="text-md">{product.title}</p>
+                      <p className="text-sm">{product.description}</p>
+                    </div>
+                  </div>
+                  <div className="w-full bg-white items-center gap-2">
+                      
+                  </div>
+                  <div className="flex flex-col">
+                    <h2 className="text-gray-400">Subtotal</h2>
+                    <h2 className="text-3xl">${product.price}</h2>
+                  </div>
+                </div>
                 <button
                   onClick={() => addToCart(product)}
-                  className="px-4 py-2 bg-[#121212] text-white rounded-lg"
+                  className="px-4 py-2 bg-[#121212] text-white rounded-lg flex items-center justify-center gap-2"
                 >
-                  klik ini dah
+                  <span>
+                    <FaPlus className="text-[12px]" />
+                  </span>
+                  Add to cart
                 </button>
               </div>
             </div>
@@ -96,7 +122,8 @@ const ProductDetail = () => {
 
                         <div className="flex flex-col">
                           <h3 className="flex items-center gap-2">
-                            {review.reviewerName} <GoDotFill className="text-gray-400 text-[10px]" />
+                            {review.reviewerName}{" "}
+                            <GoDotFill className="text-gray-400 text-[10px]" />
                             <span className="text-gray-400 text-xs">
                               {new Date(review.date).toLocaleDateString()}
                             </span>
