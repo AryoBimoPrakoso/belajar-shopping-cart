@@ -31,8 +31,8 @@ const Navbar = () => {
         <Link to="/">
           <h1 className="text-5xl MonsieurFont">fragrances</h1>
         </Link>
-        <Link to="/cart">
-          <img src={cartSVG} className="w-[24px] hover:scale-130 transition ease-in duration-300" />
+        <Link to="/cart" className="flex gap-2">
+          <img src={cartSVG} className="w-[24px] hover:scale-130 transition ease-in duration-300" /><p>Cart</p>
         </Link>
       </div>
     </div>
