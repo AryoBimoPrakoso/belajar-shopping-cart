@@ -31,7 +31,7 @@ export const CartProvider = ({ children }) => {
 
   
   // Add product ke cart
-  const addToCart = (product) => {
+  const addToCart = (product, qty) => {
     // cek apakah sudah ada di cart
     const itemExist = cart.find((item) => item.id === product.id);
     if (itemExist) {
@@ -39,13 +39,13 @@ export const CartProvider = ({ children }) => {
       setCart(
         cart.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + qty }
             : item
         )
       );
     } else {
       // kalau belum ada, masukkan dengan quantity = 1
-      setCart([...cart, { ...product, quantity: 1 }]);
+      setCart([...cart, { ...product, quantity: qty }]);
     }
     alert("berhasil ditambah!");
   };

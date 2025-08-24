@@ -1,64 +1,68 @@
 import React from "react";
 import { useCart } from "../context/CartContex";
 import CardTotal from "../components/cardTotal";
+import { motion } from "framer-motion";
 
 const Cart = () => {
   const { cart, updateQuantity, removeFromCart } = useCart();
 
-
   return (
     <>
-      {cart.length === 0 ? (
-        <h2 className="p-10 text-center mt-[70px]">Cart is empty 😢</h2>
-      ) : (
-        <div className="p-10 mt-[70px]">
-          <h1 className="text-2xl mb-6">Your Cart</h1>
-          <div className="flex">
-            <div className="flex flex-col w-full">
-              {cart.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex items-center justify-between border-b py-4"
-                >
-                  <div className="flex items-center gap-4">
-                    <img src={item.thumbnail} alt="" className="w-16 h-16" />
-                    <div>
-                      <h2>{item.title}</h2>
-                      <p>${item.price}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      className="px-2 bg-gray-300 rounded"
-                    >
-                      -
-                    </button>
-                    <span>{item.quantity}</span>
-                    <button
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="px-2 bg-gray-300 rounded"
-                    >
-                      +
-                    </button>
-                  </div>
-
-                  <button
-                    onClick={() => removeFromCart(item.id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded"
+        {cart.length === 0 ? (
+          <h2 className="p-10 text-center mt-[70px]">Cart is empty 😢</h2>
+        ) : (
+          <div className="p-10 mt-[70px]">
+            <h1 className="text-2xl mb-6">Your Cart</h1>
+            <div className="flex">
+              <div className="flex flex-col w-full">
+                {cart.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center justify-between border-b py-4"
                   >
-                    Remove
-                  </button>
-                </div>
-              ))}
-            </div>
-            <div className="w-1/2">
-              <CardTotal />
+                    <div className="flex items-center gap-4 w-full">
+                      <img src={item.thumbnail} alt="" className="w-16 h-16" />
+                      <div>
+                        <h2>{item.title}</h2>
+                        <p>${item.price}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 w-full ">
+                      <button
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity - 1)
+                        }
+                        className="px-2 bg-gray-300 rounded"
+                      >
+                        -
+                      </button>
+                      <span>{item.quantity}</span>
+                      <button
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity + 1)
+                        }
+                        className="px-2 bg-gray-300 rounded"
+                      >
+                        +
+                      </button>
+                    </div>
+
+                    <button
+                      onClick={() => removeFromCart(item.id)}
+                      className="bg-red-500 text-white px-3 py-1 rounded"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="w-1/2">
+                <CardTotal />
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
     </>
   );
 };

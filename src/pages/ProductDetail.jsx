@@ -5,18 +5,25 @@ import { useParams } from "react-router-dom";
 import { useCart } from "../context/CartContex";
 import { Star } from "lucide-react";
 import Rating from "../components/Rating";
+import { motion } from "framer-motion";
 
 // SVG
 import profileSVG from "../assets/svg/profile.svg";
+import imgReviewSVG from "../assets/svg/gallery.svg";
 
 // Icon
 import { GoDotFill } from "react-icons/go";
 import { FaPlus } from "react-icons/fa";
+import { div } from "motion/react-client";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
   const { id, title } = useParams();
   const { addToCart } = useCart();
+
+  const increaseQty = () => setQuantity((q) => q + 1);
+  const decreaceQty = () => setQuantity((q) => (q > 1 ? q - 1 : 1));
 
   useEffect(() => {
     getData().then((result) => {
@@ -32,7 +39,7 @@ const ProductDetail = () => {
   return (
     <>
       {product && product ? (
-        <div>
+        <div className="">
           <div className="w-full flex mt-[110px] p-14 overflow-hidden">
             <div className="mx-auto flex w-full">
               <img
@@ -84,23 +91,35 @@ const ProductDetail = () => {
                       <p className="text-sm">{product.description}</p>
                     </div>
                   </div>
-                  <div className="w-full bg-white items-center gap-2">
-                      
-                  </div>
+                  <div className="w-full bg-white items-center gap-2"></div>
                   <div className="flex flex-col">
                     <h2 className="text-gray-400">Subtotal</h2>
-                    <h2 className="text-3xl">${product.price}</h2>
+                    <h2 className="text-3xl">
+                      ${(product.price * quantity).toFixed(2)}
+                    </h2>
                   </div>
                 </div>
-                <button
-                  onClick={() => addToCart(product)}
-                  className="px-4 py-2 bg-[#121212] text-white rounded-lg flex items-center justify-center gap-2"
-                >
-                  <span>
-                    <FaPlus className="text-[12px]" />
-                  </span>
-                  Add to cart
-                </button>
+                <div className="flex flex-col w-full gap-3">
+                  <div className="flex justify-around px-4 py-2 border border-gray-400 text-black rounded-lg items-center">
+                    <button className="cursor-pointer" onClick={decreaceQty}>
+                      -
+                    </button>
+                    <span>{quantity}</span>
+                    <button className="cursor-pointer" onClick={increaseQty}>
+                      +
+                    </button>
+                  </div>
+
+                  <button
+                    onClick={() => addToCart(product, quantity)}
+                    className="px-4 py-2 bg-[#121212] text-white rounded-lg flex items-center justify-center gap-2 cursor-pointer hover:scale-105 transition ease-in-out duration-300 hover:shadow-md"
+                  >
+                    <span>
+                      <FaPlus className="text-[12px]" />
+                    </span>
+                    Add to cart
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -108,39 +127,46 @@ const ProductDetail = () => {
             <div className="mx-auto flex flex-col w-full gap-4">
               <h2 className="text-2xl">Reviews</h2>
               <div className="w-full">
-                <div className="">
-                  <div className="flex flex-col p-4 px-4 w-full">
-                    {product.reviews.map((review, index) => (
-                      <div key={index} className="border-b-1 py-8 flex gap-4">
-                        <div>
-                          <img
-                            src={profileSVG}
-                            alt="ini gambar"
-                            className="w-12"
-                          />
-                        </div>
-
-                        <div className="flex flex-col">
-                          <h3 className="flex items-center gap-2">
-                            {review.reviewerName}{" "}
-                            <GoDotFill className="text-gray-400 text-[10px]" />
-                            <span className="text-gray-400 text-xs">
-                              {new Date(review.date).toLocaleDateString()}
-                            </span>
-                          </h3>
-                          <Rating rating={review.rating} />
-                          <p>{review.comment}</p>
-                        </div>
+                <div className="flex flex-col p-4 px-4 w-full">
+                  {product.reviews.map((review, index) => (
+                    <div key={index} className="border-b-1 py-8 flex gap-4">
+                      <div>
+                        <img
+                          src={profileSVG}
+                          alt="ini gambar"
+                          className="w-12"
+                        />
                       </div>
-                    ))}
-                  </div>
+
+                      <div className="flex flex-col">
+                        <h3 className="flex items-center gap-2">
+                          {review.reviewerName}{" "}
+                          <GoDotFill className="text-gray-400 text-[10px]" />
+                          <span className="text-gray-400 text-xs">
+                            {new Date(review.date).toLocaleDateString()}
+                          </span>
+                        </h3>
+                        <Rating rating={review.rating} />
+                        <p>{review.comment}</p>
+                        <img
+                          src={imgReviewSVG}
+                          className="w-12 py-2 opacity-50"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
       ) : (
-        <p>Loading...</p>
+        <div className="h-full">
+          <div className="flex mx-auto justify-center">
+            <p>Loading...</p>
+          </div>
+        </div>
       )}
     </>
   );
