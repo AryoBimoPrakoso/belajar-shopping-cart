@@ -18,9 +18,6 @@ const CardTotal = () => {
         </div>
         <div className="w-full pt-8">
           <button className="px-4 py-2 bg-[#121212] text-white rounded-lg flex items-center justify-center gap-2 cursor-pointer hover:scale-105 transition ease-in-out duration-300 hover:shadow-md w-full">
-            <span>
-              
-            </span>
             Checkout
           </button>
         </div>

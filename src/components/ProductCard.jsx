@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import storeSVG from "../assets/svg/shop.svg";
 import useProduct from "../hooks/useProduct";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const ProductCard = () => {
   const { products, loading } = useProduct();
@@ -9,7 +10,29 @@ const ProductCard = () => {
   return (
     <>
       {loading ? (
-        <div>ini loading</div>
+        <div className="h-full w-4/5 mx-auto">
+          <div className="p-14 w-full grid grid-flow-row grid-cols-4 gap-4">
+            {Array(8)
+              .fill()
+              .map((_, index) => (
+                <div
+                  key={index}
+                  className="border border-gray-300 rounded-xl p-4"
+                >
+                  <SkeletonTheme baseColor="#e0e0e0" highlightColor="#f5f5f5">
+                    <div className="flex w-full p-4 bg-gray-200 rounded-xl">
+                      <Skeleton height={150} width="100%" />
+                    </div>
+                    <div className="mt-6">
+                      <Skeleton height={24} width="80%" />
+                      <Skeleton height={20} width="40%" className="mt-2" />
+                      <Skeleton height={20} width="60%" className="mt-2" />
+                    </div>
+                  </SkeletonTheme>
+                </div>
+              ))}
+          </div>
+        </div>
       ) : (
         <div className="h-full w-4/5 mx-auto">
           <div className="p-14 w-full grid grid-flow-row grid-cols-4 gap-4">

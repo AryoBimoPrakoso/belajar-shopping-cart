@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FaCartShopping } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { IoMdHome } from "react-icons/io";
 
@@ -32,7 +31,7 @@ const Navbar = () => {
           <h1 className="text-5xl MonsieurFont">fragrances</h1>
         </Link>
         <Link to="/cart" className="flex gap-2">
-          <img src={cartSVG} className="w-[24px] hover:scale-130 transition ease-in duration-300" /><p>Cart</p>
+          <img src={cartSVG} className="w-[24px]" /><p>Cart</p>
         </Link>
       </div>
     </div>

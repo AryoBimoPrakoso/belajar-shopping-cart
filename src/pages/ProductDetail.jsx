@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import ProductCard from "../components/ProductCard";
 import { getData } from "../api/product";
 import { useParams } from "react-router-dom";
 import { useCart } from "../context/CartContex";
-import { Star } from "lucide-react";
 import Rating from "../components/Rating";
-import { motion } from "framer-motion";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { CheckCircle2Icon } from "lucide-react";
 
 // SVG
 import profileSVG from "../assets/svg/profile.svg";
@@ -14,13 +13,12 @@ import imgReviewSVG from "../assets/svg/gallery.svg";
 // Icon
 import { GoDotFill } from "react-icons/go";
 import { FaPlus } from "react-icons/fa";
-import { div } from "motion/react-client";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const { id, title } = useParams();
-  const { addToCart } = useCart();
+  const { addToCart, alert } = useCart();
 
   const increaseQty = () => setQuantity((q) => q + 1);
   const decreaceQty = () => setQuantity((q) => (q > 1 ? q - 1 : 1));
@@ -40,6 +38,17 @@ const ProductDetail = () => {
     <>
       {product && product ? (
         <div className="">
+          {alert && (
+            <div className="fixed inset-0 mt-8 flex animate-pop-in justify-center z-50">
+              <div>
+                <Alert>
+                  <CheckCircle2Icon />
+                  <AlertTitle>{alert.title}</AlertTitle>
+                  <AlertDescription>{alert.description}</AlertDescription>
+                </Alert>
+              </div>
+            </div>
+          )}
           <div className="w-full flex mt-[110px] p-14 overflow-hidden">
             <div className="mx-auto flex w-full">
               <img
@@ -88,7 +97,9 @@ const ProductDetail = () => {
                     </div>
                     <div className="flex flex-col">
                       <p className="text-md">{product.title}</p>
-                      <p className="text-sm">{product.description}</p>
+                      <p className="text-sm text-gray-500">
+                        {product.description}
+                      </p>
                     </div>
                   </div>
                   <div className="w-full bg-white items-center gap-2"></div>
@@ -163,7 +174,7 @@ const ProductDetail = () => {
         </div>
       ) : (
         <div className="h-full">
-          <div className="flex mx-auto justify-center">
+          <div className="flex justify-center items-center">
             <p>Loading...</p>
           </div>
         </div>
